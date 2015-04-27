@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="assert.css" />
+	<title>Validate Tests</title>
+</head>
+<body>
+	<h3>Check console for form output!</h3>
+	<form action="" id="my-form">
+		<input type="text" name="user" id="user" placeholder="user" />
+		<input type="text" name="pass" id="pass" placeholder="pass" />
+		<input type="submit" value="GO">
+	</form>
+	<h3>if all is green, than test are OK!</h3>
+</body>
+<script src="../validate.js"></script>
+<script src="./functions.js"></script>
+<script>
+    
+    var v = new MY.Validate();
+    
+    assert(v.validate(25).min(15).isValid(), 'min, value is 15, check 25');
+    assert(v.validate(25).max(55).isValid(), 'min, value is 55, check 25');
+
+    assert(v.validate(25).min(55).isValid() === false, 'min, false check, minimum value is 55, check 25');
+    assert(v.validate(25).max(15).isValid() === false, 'min, false check, maximum value is 15, check 25');
+
+    assert(v.validate('hello max').maxLength(20).isValid(), 'maxLength, value is 20, check `hello max`');
+    assert(v.validate('hello dude').minLength(5).isValid(), 'minLength, value is 5, check `hello dude`');
+    assert(v.validate('hello bo').exactLength(8).isValid(), 'exactLength, value is 8, check `hello bo`');
+
+    assert(v.validate('abcDCeFFg').isAlpha().isValid(), 'isAlpha, check `abcDCeFFg`');
+    assert(v.validate('a$!DCeFFg').isAlpha().isValid() === false, 'isAlpha, check `a$!DCeFFg` is not numeric');
+    assert(v.validate('028374793').isNumeric().isValid(), 'isNumeric, check 028374793');
+    assert(v.validate(0x82773848).isNumeric().isValid(), 'isNumeric, check 0x82773848');
+    assert(v.validate(0x83737CAD).isNumeric().isValid(), 'isNumeric, check 0x83737CAD');
+    assert(v.validate('83737CAD').isNumeric().isValid() === false, 'isNumeric, check 83737CAD is not numeric');
+    assert(v.validate('8373 928').isNumeric().isValid() === false, 'isNumeric, check 8373 928 is not numeric');
+    assert(v.validate('abCD23Gf445').isAlphaNumeric().isValid(), 'isAlphaNumeric, check `abCD23Gf445`');
+    assert(v.validate('sBc23-data_tesYH').isAlphaDash().isValid(), 'isAlphaDash, check `sBc23-data_tesYH`');
+    assert(v.validate('sB-d@ta_tYH').isAlphaDash().isValid() === false, 'isAlphaDash, check `sB-d@ta_tYH` is not alpha-dash');
+    assert(v.validate(1234567890).isInteger().isValid(), 'isInteger, check 1234567890');
+    assert(v.validate(0x34567890).isInteger().isValid(), 'isInteger, check 0x34567890');
+    assert(v.validate(0b010101010).isInteger().isValid(), 'isInteger, check 0b010101010'); //binary integer literal is only available in ES6
+
+    assert(v.validate('myStrongPass').matches('myStrongPass').isValid(), 'matches, must match');
+    assert(v.validate('').required().isValid() === false, 'required, check ``, is not valid');
+
+    // base64 ( a-z, A-Z, 0-9, + and / ) - '=' characters might be added to make the last block  
+    assert(v.validate('aGVsbG8td29ybGQ=').isBase64().isValid(), 'isBase64, check aGVsbG8td29ybGQ=');
+    assert(v.validate('@GVdQ=').isBase64().isValid() === false, 'isBase64, check @GVdQ=, is not base64 string');
+    assert(v.validate('192.168.1.88').isIP().isValid(), 'isIP, check 192.168.1.88');
+    assert(v.validate('192.168.1.888').isIP().isValid() === false, 'isIP, check 192.168.1.888 is not ip');
+    assert(v.validate('yo@fuu.bar').isEmail().isValid(), 'isEmail, check yo@fuu.bar');
+    assert(v.validate('yo@fuu').isEmail().isValid() === false, 'isEmail, check yo@fuu is not a valid email');
+    assert(v.validate('https://fasebook.com/messages').isUrl().isValid(), 'isUrl, check https://fasebook.com/messages');
+    assert(v.validate('fasebook.com/messages').isUrl().isValid() === false, 'isUrl, check fasebook.com/messages is not a valid url');
+
+    assert(v.validate('>:}L_)!@+$(":{{>{!@').noWhitespace().isValid(), 'noWhitespace, check `>:}L_)!@+$(":{{>{!@`');
+    assert(v.validate(' ').noWhitespace().isValid() === false, 'noWhitespace, check ` `, is not valid');
+
+    // complex checks
+    
+    assert(v.validate('superuser').minLength(8).maxLength(64).isAlphaDash().noWhitespace().isValid(), 'complex check #1');
+    assert(v.validate('Str0ngP@ss').minLength(8).noWhitespace().required().isValid(), 'complex check #2');
+    assert(v.validate('359882204602').isNumeric().maxLength(12).isValid(), 'complex check #3');
+
+</script>
+</html>

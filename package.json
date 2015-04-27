@@ -1,0 +1,19 @@
+{
+  "name": "js-valid",
+  "version": "1.0.0",
+  "description": "Powerful validation library for JavaScript",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donvercety/js-valid.git"
+  },
+  "keywords": [
+    "validate",
+    "valid",
+    "validation"
+  ],
+  "author": "Tommy Vercety <donvercety@gmail.com> (donvercety.biz)",
+  "license": "ISC"
+}
