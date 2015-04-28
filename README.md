@@ -21,24 +21,24 @@ Then add a `<script>` to your index.html
 
 ```html
 <script type="text/javascript">
-  var v = new MY.Validate();
-  
-  var user = 'biguser001', pass = 'Str0ngP@ss';
-  
-  // validating user and give rules
-  v.validate(user); 
-  v.required().minLength(8).isAlphaDash().noWhitespace();
-  
-  // validating pass and give rules directly
-  v.validate(pass).required().minLength(8);
-  
-  // check all validation rules
-  if(v.isValid()) { 
-      console.log('Validation successful!');
-  } else {
-      // display errors
-      console.log('Errors: ' + v.getErrors());
-  }
+    var v = new MY.Validate();
+    
+    var user = 'biguser001', pass = 'Str0ngP@ss';
+    
+    // validating user and give rules
+    v.validate(user); 
+    v.required().minLength(8).isAlphaDash().noWhitespace();
+    
+    // validating pass and give rules directly
+    v.validate(pass).required().minLength(8);
+    
+    // check all validation rules
+    if(v.isValid()) { 
+        console.log('Validation successful!');
+    } else {
+        // display errors
+        console.log('Errors: ' + v.getErrors());
+    }
 </script>
 ```
 
