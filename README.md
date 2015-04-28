@@ -42,7 +42,7 @@ Then add a `<script>` to your index.html
 </script>
 ```
 
-### Available validations methods
+### Available validation methods
 - `min()`
 - `max()`
 - `maxLength()`
