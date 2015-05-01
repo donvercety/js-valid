@@ -76,6 +76,11 @@ MY.Validate = (function() {
     // :: Public Methods
     // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     
+    /**
+     * Get all data from a form element in HTML
+     * @param  {[string]} formID [id of the form element]
+     * @return {[object]}        [object containing all data form the form]
+     */
     Validate.prototype.getFormFields = function(formID) {
         var container, inputs, index, len, data = {};
 
@@ -86,8 +91,12 @@ MY.Validate = (function() {
         inputs = container.getElementsByTagName('input');
         for(index = 0, len = inputs.length; index < len;  index++) {
             if(inputs[index].name) {
-                data[inputs[index].name] = inputs[index].value;
-            }    
+                if(inputs[index].type == 'radio') {
+                    if(inputs[index].checked) { data[inputs[index].name] = inputs[index].value; }  
+                } else {
+                    data[inputs[index].name] = inputs[index].value;  
+                }
+            }
         }
 
         // find it's child 'textarea' elements

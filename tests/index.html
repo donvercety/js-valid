@@ -9,7 +9,9 @@
 	<h3>Check console for form output!</h3>
 	<form action="" id="my-form">
 		<input type="text" name="user" id="user" placeholder="user" /> <br /><br />
-		<input type="text" name="pass" id="pass" placeholder="pass" /> <br /><br />
+		<input type="password" name="pass" id="pass" placeholder="pass" /> <br /><br />
+        <input type="radio" name="sex" value="male" checked>Male <br />
+        <input type="radio" name="sex" value="female">Female <br />
         <textarea name="text"></textarea> <br />
         <select name="select">
             <option value="volvo">Volvo</option>
@@ -22,7 +24,7 @@
     <h3>if all is green, than test are OK!</h3>
 </body>
 <script src="../validate.js"></script>
-<script src="./functions.js"></script>
+<script src="./assert.js"></script>
 <script>
 
     var v = new MY.Validate();
@@ -80,17 +82,21 @@
         var formData = v.getFormFields('my-form');
         console.log(formData);
         
-        // v.validate(formData.user).required().minLength(8).isAlphaDash().noWhitespace();
-        // console.log('Value: ' + formData.user, 'Verdict: ' + v.isValid());
-        // if(v.getErrors()) { console.warn('Errors: ' + v.getErrors() + "\n"); }
+        v.validate(formData.user).required().minLength(4).isAlphaDash().noWhitespace();
+        console.log('Value: ' + formData.user, 'Verdict: ' + v.isValid());
+        if(v.getErrors()) { console.warn('Errors: ' + v.getErrors() + "\n"); }
 
-        // v.validate(formData.pass).required().minLength(12);
-        // console.log('Value: ' + formData.pass, 'Verdict: ' + v.isValid());
-        // if(v.getErrors()) { console.warn('Errors: ' + v.getErrors() + "\n"); }
+        v.validate(formData.pass).required().minLength(8);
+        console.log('Value: ' + formData.pass, 'Verdict: ' + v.isValid());
+        if(v.getErrors()) { console.warn('Errors: ' + v.getErrors() + "\n"); }
 
-        // v.validate(formData.text).minLength(24);
-        // console.log('Value: ' + formData.text, 'Verdict: ' + v.isValid());
-        // if(v.getErrors()) {  console.warn('Errors: ' + v.getErrors()); }
+        v.validate(formData.text).minLength(12);
+        console.log('Value: ' + formData.text, 'Verdict: ' + v.isValid());
+        if(v.getErrors()) {  console.warn('Errors: ' + v.getErrors()); }
+
+        v.validate(formData.select).matches('saab');
+        console.log('Value: ' + formData.select, 'Verdict: ' + v.isValid());
+        if(v.getErrors()) {  console.warn('Errors: ' + v.getErrors()); }
     });
 
 </script>
