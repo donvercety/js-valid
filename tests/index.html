@@ -84,21 +84,21 @@
         var formData = v.getFormFields('my-form');
         console.log(formData);
         
-        v.validate(formData.user).required().minLength(4).isAlphaDash().noWhitespace();
-        console.log('Value: ' + formData.user, 'Verdict: ' + v.isValid());
-        if(v.getErrors()) { console.warn('Errors: ' + v.getErrors() + "\n"); }
-
-        v.validate(formData.pass).required().minLength(8);
-        console.log('Value: ' + formData.pass, 'Verdict: ' + v.isValid());
-        if(v.getErrors()) { console.warn('Errors: ' + v.getErrors() + "\n"); }
-
-        v.validate(formData.text).minLength(12);
-        console.log('Value: ' + formData.text, 'Verdict: ' + v.isValid());
-        if(v.getErrors()) {  console.warn('Errors: ' + v.getErrors()); }
-
-        v.validate(formData.select).matches('saab');
-        console.log('Value: ' + formData.select, 'Verdict: ' + v.isValid());
-        if(v.getErrors()) {  console.warn('Errors: ' + v.getErrors()); }
+        v.validate(formData.user, 'user').required().minLength(4).isAlphaDash().noWhitespace();
+        v.validate(formData.pass, 'pass').required().minLength(8);
+        v.validate(formData.text, 'text').minLength(12);
+        v.validate(formData.select, 'select').matches('saab');
+        console.log('Verdict: ' + v.isValid());
+        assert(true, '--' + JSON.stringify(formData) + '--');
+        if(v.getErrors()) { 
+            var err = v.getErrors()
+            for(var i = 0, len = err.length; i < len; i++) {
+                assert(!v.getErrors(), err[i]);
+                console.warn('Error: ' + err[i]);
+            }
+        } else {
+            assert(true, 'no errors in form validation');
+        }
     });
 
 </script>
