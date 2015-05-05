@@ -77,6 +77,56 @@ MY.Validate = (function() {
     // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     
     /**
+     * Get all data from a form element in HTML
+     * @param  {[string]} formID [id of the form element]
+     * @return {[object]}        [object containing all data form the form]
+     */
+    Validate.prototype.getFormFields = function(formID) {
+        var container, inputs, index, len, data = {};
+
+        // get the container element
+        container = document.getElementById(formID);
+
+        // find it's child 'input' elements
+        inputs = container.getElementsByTagName('input');
+        for(index = 0, len = inputs.length; index < len;  index++) {
+            if(inputs[index].name) {
+                if(inputs[index].type == 'radio') {
+                    if(inputs[index].checked) { data[inputs[index].name] = inputs[index].value; }  
+                } else {
+                    data[inputs[index].name] = inputs[index].value;  
+                }
+            }
+        }
+
+        // find it's child 'textarea' elements
+        var textarea, t_index, tl;
+        textarea = container.getElementsByTagName('textarea');
+        for(t_index = 0, tl = textarea.length; t_index < tl;  t_index++) {
+            if(textarea[t_index].name) {
+                data[textarea[t_index].name] = textarea[t_index].value;
+            }    
+        }
+
+        // find it's child 'select' elements
+        var select, option, s_index, sl;
+        select = container.getElementsByTagName('select');
+        for(s_index = 0, sl = select.length; s_index < sl;  s_index++) {
+            if(select[s_index].name) {
+                option = select[s_index].getElementsByTagName('option');
+                var o_index, ol;
+                for(o_index = 0, ol = option.length; o_index < ol;  o_index++) {
+                    if(option[o_index].selected) {
+                        data[select[s_index].name] = option[o_index].value;
+                    }
+                }
+            }    
+        }
+
+        return data;
+    };
+    
+    /**
      * Supply the value to be validated
      * @param  {[mixed]} value
      */
@@ -96,10 +146,10 @@ MY.Validate = (function() {
 
     /**
      * Get errors, if any, after running isValid()
-     * @return {[type]} [description]
+     * @return {[mixed]} [returns errors array, if no errors, returns false]
      */
     Validate.prototype.getErrors = function() {
-        return lastErrors;
+        return lastErrors.length > 0 ? lastErrors : false;
     };
 
     /**
