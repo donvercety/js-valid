@@ -46,7 +46,7 @@ Then add a `<script>` to your index.html
             e.preventDefault();
             
             // get all fields from the form using the id
-            var data = v.getFormFields('test-form');
+            var data = v.getFormFields(form);
             
             // user validation
             v.validate(data.name, 'user');
