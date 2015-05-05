@@ -31,6 +31,7 @@ MY.Validate = (function() {
         
         max: '{1} integer value must not exceed {0}',
         min: '{1} integer value must be at least {0}',
+        exact: '{1} integer value must be exactly {0}',
 
         maxLength: '{1} must not exceed {0} characters in length',
         minLength: '{1} must be at least {0} characters in length',
@@ -182,6 +183,13 @@ MY.Validate = (function() {
         this.isInteger(value);
         if(this.value <= value) {
             errors.push(msg(messages.min, value, this.key)); }
+        return this;
+    };
+    
+    Validate.prototype.exact = function(value) {
+        this.isInteger(value);
+        if(this.value == value) {
+            errors.push(msg(messages.exact, value, this.key)); }
         return this;
     };
 

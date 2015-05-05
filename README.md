@@ -80,6 +80,7 @@ Then add a `<script>` to your index.html
 ### Available validation methods
 - min(val)
 - max(val)
+- exact(val)
 - maxLength(val)
 - minLength(val)
 - exactLength(val)
@@ -128,6 +129,7 @@ Methods that use both `{0}` and `{1}`, all ohter methods use only `{1}`. Or simp
 
 - min(val)
 - max(val)
+- exact(val)
 - maxLength(val)
 - minLength(val)
 - exactLength(val)
