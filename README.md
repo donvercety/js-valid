@@ -125,7 +125,7 @@ v.setMsg('maxLength', new_msg);
 
 You can change all error messages for each method, just by adding as first parameter it's name and as second the new message. The characters `{0}` will be replaced with the validation value and `{1}` with the `field_name` that you specify in the `validate()` method as second parameter.
 
-Methods that use both `{0}` and `{1}`, all ohter methods use only `{1}`. Or simply, methods that use both, are methods that have a `val` parameter.
+Methods that use both `{0}` and `{1}`, all ohter methods use only `{1}`.
 
 - min(val)
 - max(val)
@@ -134,3 +134,6 @@ Methods that use both `{0}` and `{1}`, all ohter methods use only `{1}`. Or simp
 - minLength(val)
 - exactLength(val)
 - matches(val)
+
+
+Or simply, methods that use both, are methods that have a `val` parameter.
