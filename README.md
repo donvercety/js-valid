@@ -55,6 +55,7 @@ Then add a `<script>` to your index.html
 - `isAlphaNumeric()`
 - `isAlphaDash()`
 - `isInteger()`
+- `isHex()`
 - `isBase64()`
 - `isIP()`
 - `isEmail()`

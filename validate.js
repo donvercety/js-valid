@@ -16,6 +16,7 @@ MY.Validate = (function() {
         alphaNumericRegex = /^[a-z0-9]+$/i,
         alphaDashRegex    = /^[a-z0-9_\-]+$/i,
         integerRegex      = /^\-?[0-9]+$/,
+        hexRegex          = /^[a-f0-9]+$/i,
         base64Regex       = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/,
         whitespaceRegex   = /\s/g,
         ipRegex           = /^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})$/i,
@@ -43,6 +44,7 @@ MY.Validate = (function() {
         isAlphaNumeric: 'must contain only alpha-numeric characters',
         isAlphaDash: 'must contain only alpha-numeric characters, underscores, and dashes',
         isInteger: 'must contain an integer',
+        hexRegex: 'must contain a valid hex value',
 
         isBase64: 'must contain a base64 string',
         isIP: 'must contain a valid IP',
@@ -237,6 +239,12 @@ MY.Validate = (function() {
     Validate.prototype.isInteger = function() {
         if(!integerRegex.test(this.value)) {
             errors.push(msg(messages.isInteger)); }
+        return this;
+    };
+    
+    Validate.prototype.isHex = function() {
+        if(!hexRegex.test(this.value)) {
+            errors.push(msg(messages.hexRegex)); }
         return this;
     };
 

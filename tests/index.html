@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="assert.css" />
-	<title>Validate Tests</title>
+    <title>Validate Tests</title>
 </head>
 <body>
 	<h3>Check console for form output!</h3>
@@ -52,6 +52,8 @@
     assert(v.validate(1234567890).isInteger().isValid(), 'isInteger, check 1234567890');
     assert(v.validate(0x34567890).isInteger().isValid(), 'isInteger, check 0x34567890');
     assert(v.validate(0b010101010).isInteger().isValid(), 'isInteger, check 0b010101010'); //binary integer literal is only available in ES6
+    assert(v.validate(0xAACCDD).isHex().isValid(), 'isHex, check 0xAACCDD');
+    assert(v.validate('AACZDD').isHex().isValid() === false, 'isHex, check 0xAACZDD is not a valid hex');
 
     assert(v.validate('myStrongPass').matches('myStrongPass').isValid(), 'matches, must match');
     assert(v.validate('').required().isValid() === false, 'required, check ``, is not valid');
