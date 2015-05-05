@@ -45,7 +45,7 @@ Then add a `<script>` to your index.html
         form.addEventListener("submit", function(e) {
             e.preventDefault();
             
-            // get all fields from the form using the id
+            // get all fields from the form using the form id or the already selected object
             var data = v.getFormFields(form);
             
             // user validation
