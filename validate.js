@@ -82,14 +82,17 @@ MY.Validate = (function() {
     
     /**
      * Get all data from a form element in HTML
-     * @param  {[string]} formID [id of the form element]
+     * @param  {[string]} formID [id of the form element or object containing form DOM selection]
      * @return {[object]}        [object containing all data form the form]
      */
     Validate.prototype.getFormFields = function(formID) {
         var container, inputs, index, len, data = {};
-
-        // get the container element
-        container = document.getElementById(formID);
+        
+        if(formID !== null && typeof formID === 'object') {
+            container = formID;
+        } else {
+            container = document.getElementById(formID); 
+        }
 
         // find it's child 'input' elements
         inputs = container.getElementsByTagName('input');

@@ -81,7 +81,7 @@
 
     form.addEventListener("submit", function(e){
         e.preventDefault();
-        var formData = v.getFormFields('my-form');
+        var formData = v.getFormFields(form);
         console.log(formData);
         
         v.validate(formData.user, 'user').required().minLength(4).isAlphaDash().noWhitespace();
