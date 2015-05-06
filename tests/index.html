@@ -89,11 +89,9 @@
         v.validate(formData.text, 'text').minLength(12);
         v.validate(formData.select, 'select').matches('saab');
         console.log('Verdict: ' + v.isValid());
-        assert(true, '--' + JSON.stringify(formData) + '--');
         if(v.getErrors()) { 
             var err = v.getErrors()
             for(var i = 0, len = err.length; i < len; i++) {
-                assert(!v.getErrors(), err[i]);
                 console.warn('Error: ' + err[i]);
             }
         } else {

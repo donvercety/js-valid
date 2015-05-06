@@ -39,7 +39,7 @@ Then add a `<script>` to your index.html
     <script type="text/javascript">
         var v, form; 
     
-        v = new MY.Validate(),
+        v = new MY.Validate();
         
         form = document.getElementById('test-form');
         form.addEventListener("submit", function(e) {
